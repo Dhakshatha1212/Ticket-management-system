@@ -13,13 +13,11 @@ function TicketList({ tickets, loading, onStatusChange, onDelete, onEdit }) {
     Low: 1,
   };
 
-  // Filter tickets by status and search query
+  // Filter tickets by status and title search query
   const filteredTickets = tickets.filter((ticket) => {
     const matchesStatus = filter === 'All' || ticket.status === filter;
     const query = searchQuery.toLowerCase().trim();
-    const matchesSearch = !query || 
-      ticket.title.toLowerCase().includes(query) ||
-      ticket.description.toLowerCase().includes(query);
+    const matchesSearch = !query || ticket.title.toLowerCase().includes(query);
     return matchesStatus && matchesSearch;
   });
 
@@ -101,8 +99,8 @@ function TicketList({ tickets, loading, onStatusChange, onDelete, onEdit }) {
           <input
             type="text"
             className="search-input"
-            aria-label="Search tickets by title or description"
-            placeholder="Search tickets by title or description..."
+            aria-label="Search tickets by title"
+            placeholder="Search tickets by title..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -145,7 +143,7 @@ function TicketList({ tickets, loading, onStatusChange, onDelete, onEdit }) {
         <div className="filter-feedback-bar">
           <span>
             Showing <strong>{sortedTickets.length}</strong> of <strong>{tickets.length}</strong> tickets
-            {searchQuery && <> matching "<em>{searchQuery}</em>"</>}
+            {searchQuery && <> with title matching "<em>{searchQuery}</em>"</>}
             {filter !== 'All' && <> in status <strong>{filter}</strong></>}
           </span>
           <button onClick={handleResetFilters} className="link-reset-filters">
@@ -169,7 +167,7 @@ function TicketList({ tickets, loading, onStatusChange, onDelete, onEdit }) {
           <h3 className="empty-title">No matching tickets found</h3>
           <p className="empty-description">
             {searchQuery 
-              ? `We couldn't find any tickets matching "${searchQuery}"${filter !== 'All' ? ` with status "${filter}"` : ''}.`
+              ? `No tickets found with title matching "${searchQuery}"${filter !== 'All' ? ` in status "${filter}"` : ''}.`
               : `There are currently no tickets marked as "${filter}".`}
           </p>
           <button onClick={handleResetFilters} className="btn-reset-filters">

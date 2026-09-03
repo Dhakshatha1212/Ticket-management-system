@@ -36,10 +36,33 @@ function App() {
 
   // Load tickets on initial mount
   useEffect(() => {
-    loadTickets();
+    let isMounted = true;
+    const fetchInitialTickets = async () => {
+      try {
+        const data = await fetchTickets();
+        if (isMounted) {
+          setTickets(data);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error('Error fetching tickets:', err);
+          setApiError(
+            'Unable to connect to the backend server. Please make sure the backend is running on http://localhost:5000'
+          );
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchInitialTickets();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const loadTickets = async () => {
+  const handleRetry = async () => {
     try {
       setLoading(true);
       setApiError(null);
@@ -146,7 +169,7 @@ function App() {
           <div className="alert-content">
             <strong>Connection Notice:</strong> {apiError}
           </div>
-          <button onClick={loadTickets} className="btn-retry">
+          <button onClick={handleRetry} className="btn-retry">
             Retry Connection
           </button>
         </div>

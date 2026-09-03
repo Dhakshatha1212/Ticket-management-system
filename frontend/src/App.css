@@ -635,16 +635,17 @@ body.dark-theme .alert-error {
 }
 
 .card-deleting {
-  animation: cardSlideOut 0.25s ease-in forwards;
+  animation: cardSlideOut 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   pointer-events: none;
+  overflow: hidden;
 }
 
 @keyframes cardSlideIn {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(-8px) scale(0.98);
+    transform: translateY(-14px) scale(0.98);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -654,15 +655,21 @@ body.dark-theme .alert-error {
   0% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    max-height: 250px;
+    max-height: 400px;
+  }
+  50% {
+    opacity: 0.25;
+    transform: translateY(-6px) scale(0.97);
   }
   100% {
     opacity: 0;
-    transform: translateY(-12px) scale(0.95);
+    transform: translateY(-14px) scale(0.93);
     max-height: 0;
+    margin-top: 0;
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
+    border-width: 0;
     overflow: hidden;
   }
 }
@@ -1080,3 +1087,40 @@ body.dark-theme .btn-delete {
     justify-content: center;
   }
 }
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 12px 10px 36px;
+  }
+
+  .header-brand {
+    gap: 10px;
+  }
+
+  .brand-title {
+    font-size: 1.25rem;
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.8rem;
+  }
+
+  .filter-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .filter-btn {
+    justify-content: center;
+    padding: 8px 10px;
+  }
+
+  .stat-pill {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+}
+

@@ -84,7 +84,7 @@ function TicketItem({ ticket, onStatusChange, onDelete, onEdit }) {
           console.error('Failed to delete ticket:', err);
           setIsDeleting(false);
         }
-      }, 250);
+      }, 280);
     } catch (err) {
       console.error('Failed to delete ticket:', err);
       setIsDeleting(false);
